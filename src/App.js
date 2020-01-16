@@ -1,13 +1,15 @@
 import React from 'react';
-import PaginaInicial from './components/PaginaInicial'
+// import PaginaInicial from './components/PaginaInicial';
+import Modal from './components/Modal';
 
 
-export default class App extends React.Components() {
+export default class App extends React.Component {
   
   render () {
     return (
     <div>
-      <PaginaInicial/>
+      {/* <PaginaInicial/> */}
+      <Modal/>
     </div>
     );
   }  

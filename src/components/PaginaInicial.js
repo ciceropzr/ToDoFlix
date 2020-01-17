@@ -5,14 +5,29 @@ import capitao from './imagens/capitao-fantastico.svg';
 export default class PaginaInicial extends React.Component {
   constructor(props){
     super(props);
+
+    this.state = {
+      abrir: false
+    }
   }
+
+  openFilter = () => (
+    this.setState({abrir:!this.state.abrir})
+  )
+
 
   render() {
     return(
       <DivInicio>
         <div>
           <h1>ToDoFlix</h1>
-          <p>categorias</p>
+          <p onClick={this.openFilter}>categorias</p>
+          {this.state.abrir && (
+          <DivButton>
+            <button>Quero ver</button>
+            <button>Já visto</button>
+          </DivButton>
+          )}
           <button onClick={this.props.handleClickIn}>adicionar filme</button>
         </div>
         <div>
@@ -64,4 +79,8 @@ const DivInicio = styled.div`
   img {
     height: 420px;
   }
+`
+
+const DivButton = styled.div`
+  width: 20%;
 `

@@ -2,9 +2,9 @@ import React from 'react';
 import styled from 'styled-components';
 import claquete from './imagens/claquete.svg';
 import estrelaCinza from './imagens/estrela-cinza.svg';
-import estrelaAmarela from './imagens/estrela.svg';
+// import estrelaAmarela from './imagens/estrela.svg';
 // import 'react-dropzone-uploader/dist/styles.css'
-import Dropzone from 'react-dropzone-uploader';
+// import Dropzone from 'react-dropzone-uploader';
 
 export default class Modal extends React.Component {
   constructor(props){
@@ -12,18 +12,29 @@ export default class Modal extends React.Component {
 
     this.state = {
       oneStar: '',
-      dropFile: false,
+      dropModal: false,
+      nome: '',
+      descricao: '',
+      jaVisto:'',
+      queroVer:'',
+
     }
   }
 
-  addImage = (ev) => {
+  exitModal = (ev) => {
     this.setState({
-      dropFile: true
+      dropModal: true
     })
   }
 
   handleSubmit = (ev) => {
     ev.preventDefault()
+    const {nome, descricao} = this.state;
+    this.props.getValue(nome, descricao)
+  }
+
+  getValue = (ev) => {
+    this.setState({[ev.target.name]:ev.target.value})
   }
 
   render() {
@@ -37,15 +48,18 @@ export default class Modal extends React.Component {
               <p className="sair" onClick={this.props.handleClickOut}>X</p>
             </div>
             Nome:
-            <input type="text"/>
+            <input onChange={this.getValue} type="text" name="nome"/>
             Descrição:
-            <input type="text"/>
-            Status:
-            <input type="text"/>
+            <input onChange={this.getValue} type="text" name="descricao"/>
+            <span>Status:</span>
+            <>
+              <input onChange={this.getValue} className="queroVer" name="quero ver" type="radio"/>Quero ver
+              <input onChange={this.getValue} className="jaVisto" name="ja visto" type="radio"/>Já visto
+            </>
             <p className="imagemExibicaoTexto">Imagem de exibição:</p>
             <input className="imagemExibicaoInput" type="text"/>
             <button onClick={() => this.state.addImage}>adicionar imagem</button>
-            {this.state.addImage && <MyUploader/>}
+            {/* {this.state.addImage && <ImageUpload/>} */}
           </Form>
           <Div>
             <p>Nota:</p>
@@ -55,7 +69,7 @@ export default class Modal extends React.Component {
             <img src={estrelaCinza} alt={"quatro estrelas"}/>
             <img src={estrelaCinza} alt={"cinco estrelas"}/>
             <button onClick={this.props.handleClickOut}>cancelar</button>
-            <button>feito</button>
+            <button onClick={this.handleSubmit, this.props.handleClickOut}>feito</button>
           </Div>
         </div>
       </ModalForm>
@@ -63,27 +77,9 @@ export default class Modal extends React.Component {
   }
 }
 
-const MyUploader = () => {
-  const getUploadParams = ({ meta }) => { return { url: 'https://httpbin.org/post' } }
-  const handleChangeStatus = ({ meta, file }, status) => { console.log(status, meta, file) }
-  const handleSubmit = (files, allFiles) => {
-    console.log(files.map(f => f.meta))
-    allFiles.forEach(f => f.remove())
-  }
-
-  return (
-    <Dropzone
-      getUploadParams={getUploadParams}
-      onChangeStatus={handleChangeStatus}
-      onSubmit={handleSubmit}
-      accept="image/*,audio/*,video/*"
-    />
-  )
-}
-
 const ModalForm = styled.div`
   background: #00000030;
-  width: 100vw;
+  width: 100%;
   height: 100%;
   position: absolute;
   top: 0;
@@ -124,6 +120,18 @@ const Form = styled.form`
       border: 0;
       background: #6b6b6b10;
       border-radius: 3px;
+    }
+
+    span {
+      width: 100%;
+    }
+
+    .jaVisto {
+      width: 50px;
+    }
+
+    .queroVer {
+      width: 20px;
     }
 
     div {

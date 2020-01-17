@@ -3,26 +3,28 @@ import styled from 'styled-components';
 import capitao from './imagens/capitao-fantastico.svg';
 
 export default class PaginaInicial extends React.Component {
+  constructor(props){
+    super(props);
+  }
 
   render() {
     return(
-      <Div>
+      <DivInicio>
         <div>
           <h1>ToDoFlix</h1>
           <p>categorias</p>
-          <button>adicionar filme</button>
+          <button onClick={this.props.handleClickIn}>adicionar filme</button>
         </div>
         <div>
           <img src={capitao} alt={'capitão fantástico'}/>
         </div>
-      </Div>
+      </DivInicio>
     )
   }
 }
 
-const Div = styled.div`
+const DivInicio = styled.div`
   width: 100%;
-  /* overflow-x: hidden; */
 
   div:nth-of-type(1) {
     display: flex;
@@ -35,7 +37,7 @@ const Div = styled.div`
     width: 0;
     font-family: Open Sans;
     font-weight: 800;
-    font-size: 48px;
+    font-size: 40px;
     color: #C74350;
     flex-grow: 1;
   }
@@ -44,14 +46,14 @@ const Div = styled.div`
     width: 0;
     font-family: Open Sans;
     font-weight: normal;
-    font-size: 20px;
-    margin-right: 150px;
+    font-size: 16px;
+    margin-right: 115px;
   }
 
   button {
     font-family: Open Sans;
     font-weight: normal;
-    font-size: 20px;
+    font-size: 15px;
     background: #C74350;
     color: white;
     padding: 0.6% 1.6%;

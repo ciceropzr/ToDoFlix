@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import claquete from './imagens/claquete.svg';
-import estrelaCinza from './imagens/estrela-cinza.svg';
+import Avaliacao from './Avaliacao';
+// import estrelaCinza from './imagens/estrela-cinza.svg';
 // import estrelaAmarela from './imagens/estrela.svg';
 // import 'react-dropzone-uploader/dist/styles.css'
 // import Dropzone from 'react-dropzone-uploader';
@@ -11,12 +12,12 @@ export default class Modal extends React.Component {
     super(props);
 
     this.state = {
-      oneStar: '',
       dropModal: false,
       nome: '',
       descricao: '',
-      jaVisto:'',
       queroVer:'',
+      jaVisto:'',
+      imagem:''
 
     }
   }
@@ -29,12 +30,13 @@ export default class Modal extends React.Component {
 
   handleSubmit = (ev) => {
     ev.preventDefault()
-    const {nome, descricao} = this.state;
-    this.props.getValue(nome, descricao)
+    const {nome, descricao, jaVisto, queroVer, imagem} = this.state;
+    this.props.getValue(nome, descricao, jaVisto, queroVer, imagem)
   }
 
   getValue = (ev) => {
     this.setState({[ev.target.name]:ev.target.value})
+    console.log(this.state)
   }
 
   render() {
@@ -52,22 +54,17 @@ export default class Modal extends React.Component {
             Descrição:
             <input onChange={this.getValue} type="text" name="descricao"/>
             <span>Status:</span>
-            <>
-              <input onChange={this.getValue} className="queroVer" name="quero ver" type="radio"/>Quero ver
-              <input onChange={this.getValue} className="jaVisto" name="ja visto" type="radio"/>Já visto
-            </>
+            <input onChange={this.getValue} className="queroVer" name="botao" type="radio"/>Quero ver
+            <input onChange={this.getValue} className="jaVisto" name="botao" type="radio"/>Já visto
             <p className="imagemExibicaoTexto">Imagem de exibição:</p>
-            <input className="imagemExibicaoInput" type="text"/>
-            <button onClick={() => this.state.addImage}>adicionar imagem</button>
-            {/* {this.state.addImage && <ImageUpload/>} */}
+            <label>
+              <p>adicionar uma imagem</p>
+              <input onChange={this.getValue} type='file'/>
+            </label>
           </Form>
           <Div>
             <p>Nota:</p>
-            <img onClick={this.state.changeStar} src={estrelaCinza} alt={"uma estrela"}/>
-            <img src={estrelaCinza} alt={"duas estrelas"}/>
-            <img src={estrelaCinza} alt={"três estrelas"}/>
-            <img src={estrelaCinza} alt={"quatro estrelas"}/>
-            <img src={estrelaCinza} alt={"cinco estrelas"}/>
+            <Avaliacao/>
             <button onClick={this.props.handleClickOut}>cancelar</button>
             <button onClick={this.handleSubmit, this.props.handleClickOut}>feito</button>
           </Div>
@@ -120,6 +117,7 @@ const Form = styled.form`
       border: 0;
       background: #6b6b6b10;
       border-radius: 3px;
+      cursor: pointer;
     }
 
     span {
@@ -127,7 +125,8 @@ const Form = styled.form`
     }
 
     .jaVisto {
-      width: 50px;
+      width: 20px;
+      margin-left: 60px;
     }
 
     .queroVer {
@@ -153,6 +152,7 @@ const Form = styled.form`
     font-weight: 600;
     color: #00000030;
     margin-left: 32%;
+    cursor: pointer;
     /* align-self: flex-end; */
   }
 
@@ -181,12 +181,41 @@ const Form = styled.form`
   .imagemExibicaoTexto {
     width: 100%;
   }
+
+  input[type='file'] {
+  display: none;
+}
+
+  label {
+    display: flex;
+    justify-content: flex-end;
+    border-radius: 3px;
+    cursor: pointer;
+    margin-bottom: 3%;
+    width: 100%;
+    height: 10%;
+    border: 0;
+    background: #6b6b6b10;
+  }
+  label p {
+    border-radius: 0 3px 3px 0;
+    display: flex;
+    color: white;
+    background: #75a9a4;
+    font-family: Open Sans;
+    font-weight: 600;
+    font-size: 12px;
+    width: 40%;
+    height: 100%;
+    align-items: center;
+    justify-content: center;
+  }
 `;
 
 const Div = styled.div`
   display: flex;
   width: 70%;
-  height: 25%;
+  ${'' /* height: 25%; */}
   /* flex-direction: column; */
   flex-wrap: wrap;
   align-items: flex-start;
@@ -196,15 +225,6 @@ const Div = styled.div`
 
   p {
     width: 100%;
-  }
-
-  img {
-    width: 30px;
-    margin-bottom: 15%;
-  }
-
-  img:nth-of-type(5) {
-    margin-right: 55%;
   }
 
   button {
@@ -217,7 +237,8 @@ const Div = styled.div`
   button:nth-of-type(1) {
     border: 0;
     background: white;
-    margin: 0 2% 0 15%;
+    margin: 0 4% 0 15%;
+    cursor: pointer;
   }
 
   button:nth-of-type(2) {
@@ -225,5 +246,6 @@ const Div = styled.div`
     background: #75a9a4;
     border-radius: 3px;
     color: white;
+    cursor: pointer;
   }
 `

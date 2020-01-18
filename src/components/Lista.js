@@ -9,7 +9,11 @@ export default class Lista extends React.Component {
     return(
       <div>
         <h1>Minha lista:</h1>
-        <div></div>
+        <div>
+          <img></img>
+          <h1></h1>
+          <p></p>
+        </div>
       </div>
     )
   }

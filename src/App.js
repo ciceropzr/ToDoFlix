@@ -10,7 +10,10 @@ export default class App extends React.Component {
     this.state = {
       showComponent: false,
       nome:'',
-      descricao:''
+      descricao:'',
+      queroVer:'',
+      jaVisto:'',
+      imagem:''
     }
   }
 
@@ -26,10 +29,14 @@ export default class App extends React.Component {
     })
   }
 
-  getValue = (nome, descricao) => {
+  getValue = (nome, descricao, queroVer, jaVisto, imagem) => {
     this.setState({
       nome: nome,
-      descricao: descricao
+      descricao: descricao,
+      queroVer: queroVer,
+      jaVisto: jaVisto,
+      imagem: imagem
+
     })
   }
 

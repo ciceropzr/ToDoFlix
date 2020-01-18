@@ -63,6 +63,7 @@ const DivInicio = styled.div`
     font-weight: normal;
     font-size: 16px;
     margin-right: 115px;
+    cursor: pointer;
   }
 
   button {
@@ -74,6 +75,7 @@ const DivInicio = styled.div`
     padding: 0.6% 1.6%;
     border-radius: 4px;
     border: 0;
+    cursor: pointer;
   }
 
   img {

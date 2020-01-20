@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import capitao from './imagens/capitao-fantastico.svg';
-
 export default class PaginaInicial extends React.Component {
   constructor(props){
     super(props);
@@ -51,7 +50,7 @@ const DivInicio = styled.div`
   h1 {
     width: 0;
     font-family: Open Sans;
-    font-weight: 800;
+    font-weight: 900;
     font-size: 40px;
     color: #C74350;
     flex-grow: 1;
@@ -62,20 +61,26 @@ const DivInicio = styled.div`
     font-family: Open Sans;
     font-weight: normal;
     font-size: 16px;
-    margin-right: 115px;
+    margin-right: 125px;
     cursor: pointer;
+    z-index: 1;
   }
 
   button {
     font-family: Open Sans;
     font-weight: normal;
     font-size: 15px;
-    background: #C74350;
-    color: white;
-    padding: 0.6% 1.6%;
+    background: #f4ecf4;
+    color: black;
+    padding: 0.6% 1.4%;
     border-radius: 4px;
     border: 0;
     cursor: pointer;
+  }
+
+  button:hover {
+    background: #C74350;
+    color: white;
   }
 
   img {
@@ -84,5 +89,31 @@ const DivInicio = styled.div`
 `
 
 const DivButton = styled.div`
-  width: 20%;
+  width: 19%;
+  position: absolute;
+  right: 163px;
+  margin-top: 3%;
+  display: flex;
+  flex-wrap: wrap;
+
+  button {
+    color: black;
+    background: white;
+    border-radius: 0;
+  }
+
+  button:nth-of-type(1) {
+    padding: 3% 20%;
+    color: black;
+  }
+
+  button:nth-of-type(2) {
+    padding: 3% 29%;
+    color: black;
+  }
+
+  button:hover {
+    background: #ECECEC;
+    font-weight: 600;
+  }
 `

@@ -9,11 +9,12 @@ export default class App extends React.Component {
 
     this.state = {
       showComponent: false,
-      nome:'',
-      descricao:'',
-      queroVer:'',
-      jaVisto:'',
-      imagem:''
+      nome: [],
+      descricao: [],
+      queroVer: [],
+      jaVisto: [],
+      imagem: [],
+      stars: []
     }
   }
 
@@ -29,13 +30,14 @@ export default class App extends React.Component {
     })
   }
 
-  getValue = (nome, descricao, queroVer, jaVisto, imagem) => {
+  getValue = (nome, descricao, queroVer, jaVisto, imagem, stars) => {
     this.setState({
       nome: nome,
       descricao: descricao,
       queroVer: queroVer,
       jaVisto: jaVisto,
-      imagem: imagem
+      imagem: imagem,
+      stars: stars
 
     })
   }
@@ -45,7 +47,7 @@ export default class App extends React.Component {
     <div>
       <PaginaInicial handleClickIn={this.handleClickIn}/>
       {this.state.showComponent && <Modal getValue={this.getValue} handleClickOut={this.handleClickOut}/>}
-      <Lista/>
+      <Lista getValue={this.getValue}/>
     </div>
     );
   }  

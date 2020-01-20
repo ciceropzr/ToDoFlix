@@ -2,42 +2,31 @@ import React from 'react';
 import styled from 'styled-components';
 import claquete from './imagens/claquete.svg';
 import Avaliacao from './Avaliacao';
-// import estrelaCinza from './imagens/estrela-cinza.svg';
-// import estrelaAmarela from './imagens/estrela.svg';
-// import 'react-dropzone-uploader/dist/styles.css'
-// import Dropzone from 'react-dropzone-uploader';
 
 export default class Modal extends React.Component {
   constructor(props){
     super(props);
 
     this.state = {
-      dropModal: false,
-      nome: '',
-      descricao: '',
-      queroVer:'',
-      jaVisto:'',
-      imagem:''
-
+      nome: [],
+      descricao: [],
+      queroVer: [],
+      jaVisto: [],
+      imagem: [],
+      stars: []
     }
-  }
-
-  exitModal = (ev) => {
-    this.setState({
-      dropModal: true
-    })
   }
 
   handleSubmit = (ev) => {
     ev.preventDefault()
-    const {nome, descricao, jaVisto, queroVer, imagem} = this.state;
-    this.props.getValue(nome, descricao, jaVisto, queroVer, imagem)
+    const {nome, descricao, jaVisto, queroVer, imagem, stars} = this.state;
+    this.props.getValue(nome, descricao, jaVisto, queroVer, imagem, stars)
   }
 
-  getValue = (ev) => {
-    this.setState({[ev.target.name]:ev.target.value})
-    console.log(this.state)
-  }
+  // getValue = (ev) => {
+  //   this.setState({[ev.target.name]:ev.target.value})
+  //   console.log(this.state)
+  // }
 
   render() {
     return(
@@ -50,23 +39,41 @@ export default class Modal extends React.Component {
               <p className="sair" onClick={this.props.handleClickOut}>X</p>
             </div>
             Nome:
-            <input onChange={this.getValue} type="text" name="nome"/>
+            <input 
+            onChange={(ev) => this.setState({nome: ev.target.value})} 
+            type="text" 
+            name="nome"/>
             Descrição:
-            <input onChange={this.getValue} type="text" name="descricao"/>
+            <input 
+            onChange={(ev) => this.setState({descricao: ev.target.value})} 
+            type="text" 
+            name="descricao"/>
             <span>Status:</span>
-            <input onChange={this.getValue} className="queroVer" name="botao" type="radio"/>Quero ver
-            <input onChange={this.getValue} className="jaVisto" name="botao" type="radio"/>Já visto
+            <input 
+            onChange={(ev) => this.setState({queroVer: ev.target.value})} className="queroVer" 
+            name="botao" 
+            type="radio"/>Quero ver
+            <input 
+            onChange={(ev) => this.setState({jaVisto: ev.target.value})} className="jaVisto" 
+            name="botao" 
+            type="radio"/>Já visto
             <p className="imagemExibicaoTexto">Imagem de exibição:</p>
             <label>
+              {this.state.imagem}
               <p>adicionar uma imagem</p>
-              <input onChange={this.getValue} type='file'/>
+              <input 
+              onChange={(ev) => this.setState({imagem: ev.target.value})} 
+              type='file' 
+              name="imagem"/>
             </label>
           </Form>
           <Div>
             <p>Nota:</p>
             <Avaliacao/>
             <button onClick={this.props.handleClickOut}>cancelar</button>
-            <button onClick={this.handleSubmit, this.props.handleClickOut}>feito</button>
+            <button 
+            onClick={this.handleSubmit, this.props.handleClickOut}>feito
+            </button>
           </Div>
         </div>
       </ModalForm>
@@ -82,7 +89,6 @@ const ModalForm = styled.div`
   top: 0;
   display: flex;
   align-items: center;
-  /* justify-content: center; */
 
     .background {
       background: white;
@@ -105,7 +111,6 @@ const Form = styled.form`
   width: 70%;
   padding-left: 5%;
   display: flex;
-  /* flex-direction: column; */
   flex-wrap: wrap;
   font-size: Open Sans;
   font-weight: normal;
@@ -135,7 +140,6 @@ const Form = styled.form`
 
     div {
       display: flex;
-      /* flex-direction: column; */
       margin-bottom: 10%;
       width: 100%;
     }
@@ -153,11 +157,9 @@ const Form = styled.form`
     color: #00000030;
     margin-left: 32%;
     cursor: pointer;
-    /* align-self: flex-end; */
   }
 
   .imagemExibicaoInput {
-    /* margin-bottom: 3%; */
     height: 10%;
     width: 49%;
     border: 0;
@@ -189,6 +191,7 @@ const Form = styled.form`
   label {
     display: flex;
     justify-content: flex-end;
+    align-items: center;
     border-radius: 3px;
     cursor: pointer;
     margin-bottom: 3%;
@@ -200,6 +203,7 @@ const Form = styled.form`
   label p {
     border-radius: 0 3px 3px 0;
     display: flex;
+    margin-left: 10%;
     color: white;
     background: #75a9a4;
     font-family: Open Sans;
@@ -215,29 +219,23 @@ const Form = styled.form`
 const Div = styled.div`
   display: flex;
   width: 70%;
-  ${'' /* height: 25%; */}
-  /* flex-direction: column; */
   flex-wrap: wrap;
   align-items: flex-start;
   margin-left: 35%;
   margin-top: 2%;
-  /* padding-left: 37%; */
 
   p {
     width: 100%;
   }
 
   button {
-    /* width: 50%; */
-    /* height: 10%; */
     padding: 3% 15%;
-    /* margin-top: 5%; */
   }
 
   button:nth-of-type(1) {
     border: 0;
     background: white;
-    margin: 0 4% 0 15%;
+    margin: 0 4% 0 14%;
     cursor: pointer;
   }
 

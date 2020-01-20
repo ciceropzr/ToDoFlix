@@ -1,20 +1,22 @@
 import React from 'react';
-export default class Lista extends React.Component {
-  // constructor(props){
-  //   super(props);
-  // }
-
   // 5% de padding na primeira div para ficar padrão de espaço
+
+export default class Lista extends React.Component {
+
   render() {
-    return(
-      <div>
+    return (
+    <>
+      <h1>Minha lista:</h1>
+      {this.props.form.map((dados) => {
+      return (
         <div>
-        <h1>Minha lista:</h1>
-          <img></img>
-          <h1></h1>
-          <p>{this.props.nome}</p>
+          <img src={dados.imagem} alt={""}></img>
+          <h1>{dados.nome}</h1>
+          <p>{dados.descricao}</p>
         </div>
-      </div>
+      )
+      })}
+    </>
     )
-  }  
+  }
 }

@@ -9,12 +9,16 @@ export default class App extends React.Component {
 
     this.state = {
       showComponent: false,
-      nome: [],
-      descricao: [],
-      queroVer: [],
-      jaVisto: [],
-      imagem: [],
-      stars: []
+      form: [
+        {
+        nome: '',
+        descricao: '',
+        queroVer: '',
+        jaVisto: '',
+        imagem: '',
+        stars: ''
+      }
+      ]
     }
   }
 
@@ -32,13 +36,16 @@ export default class App extends React.Component {
 
   getValue = (nome, descricao, queroVer, jaVisto, imagem, stars) => {
     this.setState({
-      nome: nome,
-      descricao: descricao,
-      queroVer: queroVer,
-      jaVisto: jaVisto,
-      imagem: imagem,
-      stars: stars
-
+      form: [
+        {
+        nome: nome,
+        descricao: descricao,
+        queroVer: queroVer,
+        jaVisto: jaVisto,
+        imagem: imagem,
+        stars: stars
+      }
+      ]
     })
   }
 
@@ -46,8 +53,8 @@ export default class App extends React.Component {
     return (
     <div>
       <PaginaInicial handleClickIn={this.handleClickIn}/>
-      {this.state.showComponent && <Modal getValue={this.getValue} handleClickOut={this.handleClickOut}/>}
-      <Lista getValue={this.getValue}/>
+      {this.state.showComponent && <Modal handleAddFilme={this.handleAddFilme} getValue={this.getValue} handleClickOut={this.handleClickOut}/>}
+      <Lista form={this.state.form}/>
     </div>
     );
   }  

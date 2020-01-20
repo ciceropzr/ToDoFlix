@@ -8,12 +8,16 @@ export default class Modal extends React.Component {
     super(props);
 
     this.state = {
-      nome: [],
-      descricao: [],
-      queroVer: [],
-      jaVisto: [],
-      imagem: [],
-      stars: []
+      form: [
+        {
+        nome: '',
+        descricao: '',
+        queroVer: '',
+        jaVisto: '',
+        imagem: '',
+        stars: ''
+      }
+      ]
     }
   }
 
@@ -21,12 +25,8 @@ export default class Modal extends React.Component {
     ev.preventDefault()
     const {nome, descricao, jaVisto, queroVer, imagem, stars} = this.state;
     this.props.getValue(nome, descricao, jaVisto, queroVer, imagem, stars)
+    this.props.handleClickOut()
   }
-
-  // getValue = (ev) => {
-  //   this.setState({[ev.target.name]:ev.target.value})
-  //   console.log(this.state)
-  // }
 
   render() {
     return(
@@ -72,7 +72,7 @@ export default class Modal extends React.Component {
             <Avaliacao/>
             <button onClick={this.props.handleClickOut}>cancelar</button>
             <button 
-            onClick={this.handleSubmit, this.props.handleClickOut}>feito
+            onClick={this.handleSubmit}>feito
             </button>
           </Div>
         </div>

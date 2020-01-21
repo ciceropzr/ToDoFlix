@@ -15,10 +15,9 @@ export default class App extends React.Component {
         descricao: '',
         queroVer: '',
         jaVisto: '',
-        imagem: '',
-        stars: ''
       }
-      ]
+      ],
+      imagePreviewUrl: ''
     }
   }
 
@@ -34,7 +33,7 @@ export default class App extends React.Component {
     })
   }
 
-  getValue = (nome, descricao, queroVer, jaVisto, imagem, stars) => {
+  getValue = (nome, descricao, queroVer, jaVisto, imagePreviewUrl) => {
     this.setState({
       form: [
         {
@@ -42,20 +41,21 @@ export default class App extends React.Component {
         descricao: descricao,
         queroVer: queroVer,
         jaVisto: jaVisto,
-        imagem: imagem,
-        stars: stars
       }
-      ]
+      ],
+      imagePreviewUrl: imagePreviewUrl
     })
   }
 
   render () {
+
     return (
     <div>
       <PaginaInicial handleClickIn={this.handleClickIn}/>
-      {this.state.showComponent && <Modal handleAddFilme={this.handleAddFilme} getValue={this.getValue} handleClickOut={this.handleClickOut}/>}
-      <Lista form={this.state.form}/>
+      {this.state.showComponent && <Modal getValue={this.getValue} handleClickOut={this.handleClickOut}/>}
+      <Lista imagePreviewUrl={this.state.imagePreviewUrl} form={this.state.form}/>
     </div>
     );
   }  
 }
+

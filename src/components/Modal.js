@@ -14,21 +14,38 @@ export default class Modal extends React.Component {
         descricao: '',
         queroVer: '',
         jaVisto: '',
-        imagem: '',
-        stars: ''
       }
-      ]
+      ],
+      imagePreviewUrl: null
     }
   }
 
   handleSubmit = (ev) => {
     ev.preventDefault()
-    const {nome, descricao, jaVisto, queroVer, imagem, stars} = this.state;
-    this.props.getValue(nome, descricao, jaVisto, queroVer, imagem, stars)
+    const {nome, descricao, jaVisto, queroVer, imagePreviewUrl} = this.state;
+    this.props.getValue(nome, descricao, jaVisto, queroVer, imagePreviewUrl)
     this.props.handleClickOut()
   }
 
+  handleImageChange(e) {
+    e.preventDefault();
+
+    let reader = new FileReader();
+    let file = e.target.files[0];
+
+    reader.onloadend = () => {
+      this.setState({
+        imagePreviewUrl: reader.result
+      });
+    }
+
+    reader.readAsDataURL(file)
+  }
+
   render() {
+
+    {this.state.imagePreviewUrl = (<ImgPreviewUrl src={this.state.imagePreviewUrl}/>)}
+
     return(
       <ModalForm>
         <div className="background">
@@ -59,61 +76,112 @@ export default class Modal extends React.Component {
             type="radio"/>Já visto
             <p className="imagemExibicaoTexto">Imagem de exibição:</p>
             <label>
-              {this.state.imagem}
+            {/* {this.read.onloadend} */}
               <p>adicionar uma imagem</p>
               <input 
-              onChange={(ev) => this.setState({imagem: ev.target.value})} 
+              onChange={(e) => this.handleImageChange(e)} 
               type='file' 
               name="imagem"/>
+
             </label>
           </Form>
           <Div>
             <p>Nota:</p>
             <Avaliacao/>
+            <div className="responsivo">
             <button onClick={this.props.handleClickOut}>cancelar</button>
             <button 
             onClick={this.handleSubmit}>feito
             </button>
+            </div>
           </Div>
         </div>
       </ModalForm>
     )
   }
 }
+const ImgPreviewUrl = styled.img`
+  width: 300px;
+  @media(max-width: 768px) {
+    width: 450px;
+  }
+  @media(max-width: 425px) {
+    width: 600px;
+  }
+`
 
 const ModalForm = styled.div`
   background: #00000030;
   width: 100%;
   height: 100%;
-  position: absolute;
+  position: fixed;
   top: 0;
-  display: flex;
   align-items: center;
 
     .background {
       background: white;
       width: 600px;
       height: 435px;
-      margin: 0 auto;
+      margin: 7% auto 0 auto;
       padding: 0.5% 2%;
       display: flex;
       flex-direction: row;
       flex-wrap: wrap;
     }
 
+    @media (max-width: 1024px) {
+      .background {
+      margin: 12% auto 0 auto;
+      }
+    }
+
+      @media (max-width: 768px) {
+        .background {
+        height: 60%;
+        } 
+      }
+
+      @media (max-width: 668px) {
+        .background {
+        height: 45%;
+        } 
+      }
+
+      @media (max-width: 425px) {
+        .background {
+        width: 90%;
+        margin: 15% auto 0 auto;
+        } 
+      }
+
     .claquete {
       width: 30%;
       padding-right: 2%;
     }
-`;
+    @media (max-width: 768px){
+      .claquete {
+        display: none;
+      } 
+    }
+`
 
 const Form = styled.form`
   width: 70%;
   padding-left: 5%;
   display: flex;
   flex-wrap: wrap;
-  font-size: Open Sans;
+  font-family: Open Sans;
   font-weight: normal;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    padding-left: 0;
+    font-size: 20px;
+  }
+
+  @media (max-width: 375px) {
+    font-size: 22px;
+  }
   
     input {
       margin-bottom: 3%;
@@ -124,6 +192,11 @@ const Form = styled.form`
       border-radius: 3px;
       cursor: pointer;
     }
+    @media(max-width: 425px) {
+      input {
+        font-size: 22px;
+      }
+    }
 
     span {
       width: 100%;
@@ -132,16 +205,24 @@ const Form = styled.form`
     .jaVisto {
       width: 20px;
       margin-left: 60px;
+      height: 5%;
     }
 
     .queroVer {
       width: 20px;
+      height: 5%;
     }
 
     div {
       display: flex;
       margin-bottom: 10%;
       width: 100%;
+    }
+
+    @media(max-width: 425px) {
+      div {
+      margin-bottom: 5%;
+     } 
     }
 
     h1 {
@@ -158,6 +239,17 @@ const Form = styled.form`
     margin-left: 32%;
     cursor: pointer;
   }
+    @media(max-width: 768px) {
+      .sair {
+      margin-left: 50%;
+      }
+    }
+    @media(max-width: 425px) {
+      .sair {
+      margin-left: 78%;
+      font-size: 22px;
+      }
+    }
 
   .imagemExibicaoInput {
     height: 10%;
@@ -170,7 +262,6 @@ const Form = styled.form`
   button {
     font-family: Open Sans;
     font-weight: 600;
-    font-size: 12px;
     width: 49%;
     height: 10%;
     border: 0;
@@ -185,7 +276,7 @@ const Form = styled.form`
   }
 
   input[type='file'] {
-  display: none;
+    display: none;
 }
 
   label {
@@ -200,6 +291,7 @@ const Form = styled.form`
     border: 0;
     background: #6b6b6b10;
   }
+
   label p {
     border-radius: 0 3px 3px 0;
     display: flex;
@@ -208,13 +300,20 @@ const Form = styled.form`
     background: #75a9a4;
     font-family: Open Sans;
     font-weight: 600;
-    font-size: 12px;
-    width: 40%;
+    width: 50%;
     height: 100%;
     align-items: center;
     justify-content: center;
   }
-`;
+
+  @media (max-width: 425px) {
+    label p {
+    width: 100%;
+    margin-left: 0;
+    border-radius: 3px;
+    }
+  }
+`
 
 const Div = styled.div`
   display: flex;
@@ -223,6 +322,28 @@ const Div = styled.div`
   align-items: flex-start;
   margin-left: 35%;
   margin-top: 2%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+    margin-left: 0;
+  }
+
+  .responsivo {
+    width: 100%;
+  }
+
+  @media(max-width: 768px) {
+    .responsivo {
+    margin-left: 65%;
+    }
+  }
+
+  @media(max-width: 425px) {
+    .responsivo {
+    width: 100%;
+    margin: 0;
+    }
+  }
 
   p {
     width: 100%;
@@ -239,11 +360,30 @@ const Div = styled.div`
     cursor: pointer;
   }
 
+  @media (max-width: 768px) {
+    button:nth-of-type(1) {
+    margin: 0 0 0 0;
+    } 
+  }
+  @media (max-width: 425px) {
+    button:nth-of-type(1) {
+    width: 100%;
+    font-size: 22px; 
+    } 
+  }
+
   button:nth-of-type(2) {
     border: 0;
     background: #75a9a4;
     border-radius: 3px;
     color: white;
     cursor: pointer;
+  }
+
+  @media (max-width: 425px) {
+    button:nth-of-type(2) {
+    width: 100%;
+    font-size: 22px; 
+    } 
   }
 `

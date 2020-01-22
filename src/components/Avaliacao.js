@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import "./Avaliacao.css";
+import "./styles/Avaliacao.css";
 
 const Star = ({ starId, rating, onMouseEnter, onMouseLeave, onClick }) => {
   let styleClass = "star-rating-blank";

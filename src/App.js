@@ -2,6 +2,7 @@ import React from 'react';
 import PaginaInicial from './components/PaginaInicial';
 import Modal from './components/Modal';
 import Lista from './components/Lista';
+import Global from "./components/styles/Global";
 
 export default class App extends React.Component {
   constructor(props){
@@ -51,6 +52,7 @@ export default class App extends React.Component {
 
     return (
     <div>
+      <Global/>
       <PaginaInicial handleClickIn={this.handleClickIn}/>
       {this.state.showComponent && <Modal getValue={this.getValue} handleClickOut={this.handleClickOut}/>}
       <Lista imagePreviewUrl={this.state.imagePreviewUrl} form={this.state.form}/>

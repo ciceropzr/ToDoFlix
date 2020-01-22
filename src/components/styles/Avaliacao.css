@@ -18,6 +18,12 @@
     fill: #d8d8d8;
     cursor: pointer;
   }
+
+  @media(max-width: 425px) {
+    .star-rating-blank, .star-rating-filled {
+      width: 25px;
+    }
+  }
   
   .flex-container {
     display: flex;

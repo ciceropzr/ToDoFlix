@@ -23,8 +23,8 @@ export default class Modal extends React.Component {
   handleSubmit = (ev) => {
     ev.preventDefault()
     const {nome, descricao, jaVisto, queroVer, imagePreviewUrl} = this.state;
-    this.props.getValue(nome, descricao, jaVisto, queroVer, imagePreviewUrl)
-    this.props.handleClickOut()
+    this.props.getValue({nome, descricao, jaVisto, queroVer, imagePreviewUrl});
+    this.props.handleClickOut();
   }
 
   handleImageChange(e) {
@@ -43,9 +43,6 @@ export default class Modal extends React.Component {
   }
 
   render() {
-
-    {this.state.imagePreviewUrl = (<ImgPreviewUrl src={this.state.imagePreviewUrl}/>)}
-
     return(
       <ModalForm>
         <div className="background">

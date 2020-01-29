@@ -10,15 +10,7 @@ export default class App extends React.Component {
 
     this.state = {
       showComponent: false,
-      form: [
-        {
-        nome: '',
-        descricao: '',
-        queroVer: '',
-        jaVisto: '',
-      }
-      ],
-      imagePreviewUrl: ''
+      filmes: [ ],
     }
   }
 
@@ -34,18 +26,24 @@ export default class App extends React.Component {
     })
   }
 
-  getValue = (nome, descricao, queroVer, jaVisto, imagePreviewUrl) => {
-    this.setState({
-      form: [
-        {
-        nome: nome,
-        descricao: descricao,
-        queroVer: queroVer,
-        jaVisto: jaVisto,
-      }
-      ],
-      imagePreviewUrl: imagePreviewUrl
-    })
+  getValue = (filme) => {
+    const { filmes } = this.state;
+
+    console.log(filmes)
+    filmes.push(filme)
+    console.log(filmes)
+
+    // this.setState({
+    //   filmes: [
+    //     {
+    //     nome: nome,
+    //     descricao: descricao,
+    //     queroVer: queroVer,
+    //     jaVisto: jaVisto,
+    //     imagePreviewUrl: imagePreviewUrl
+    //   }
+    //   ],
+    // })
   }
 
   render () {
@@ -55,7 +53,7 @@ export default class App extends React.Component {
       <Global/>
       <PaginaInicial handleClickIn={this.handleClickIn}/>
       {this.state.showComponent && <Modal getValue={this.getValue} handleClickOut={this.handleClickOut}/>}
-      <Lista imagePreviewUrl={this.state.imagePreviewUrl} form={this.state.form}/>
+      <Lista filmes={this.state.filmes}/>
     </div>
     );
   }  

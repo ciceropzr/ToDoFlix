@@ -8,13 +8,13 @@ export default class Lista extends React.Component {
     return (
       <Container>
         <h1>Minha lista:</h1>
-        {this.props.form.map((dados) => {
+        {this.props.filmes.map((filme) => {
           return (
-            <div className="bloco" key={dados}>
-              <div>{this.props.imagePreviewUrl}</div>
-              <h2>{dados.nome}</h2>
+            <div className="bloco" key={filme}>
+              <div>{filme.imagePreviewUrl}</div>
+              <h2>{filme.nome}</h2>
               <span className="texto">
-                {dados.descricao}
+                {filme.descricao}
               </span>
             </div>
           )
